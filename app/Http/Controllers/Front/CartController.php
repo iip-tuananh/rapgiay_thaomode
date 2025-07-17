@@ -187,7 +187,7 @@ class CartController extends Controller
                 'point' => $request->point,
                 'point_value' => $request->point_value,
                 'total_before_discount' => $total_price,
-                'total_after_discount' => $total_price - $request->discount_value - $request->point_value,
+                'total_after_discount' => $total_price - $request->discount_value - $request->point_value + 22000,
                 'code' => 'ORDER' . date('Ymd') . '-' . $lastId
             ]);
 
@@ -264,7 +264,7 @@ class CartController extends Controller
             return redirect()->route('front.home-page');
         }
 
-        $orderId = session('order_id') ?? 39;
+        $orderId = session('order_id') ?? 111;
         $order = Order::query()->with('details', 'details.product', 'details.product.image')->find($orderId);
         session()->forget('order_id');
         return view('site.orders.checkout_success', compact('order'));

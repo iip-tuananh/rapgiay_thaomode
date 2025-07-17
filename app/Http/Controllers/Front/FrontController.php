@@ -151,7 +151,7 @@ class FrontController extends Controller
         $product = Product::with([
             'product_rates' => function ($q) {
                 $q->where('status', 2);
-            }
+            },
         ])->where('id', $request->product_id)->first();
         $html = view('site.partials.quick_view_product', compact('product'))->render();
 

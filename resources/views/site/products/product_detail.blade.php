@@ -130,11 +130,17 @@
                 display: block;
             }
         }
+
+        .error-attribute {
+            color: red;
+            font-size: 12px;
+        }
     </style>
 @endsection
 
 @section('content')
-    <section class="product layout-product" itemscope itemtype="https://schema.org/Product" ng-controller="ProductDetailController">
+    <section class="product layout-product" itemscope itemtype="https://schema.org/Product"
+        ng-controller="ProductDetailController">
         <div class="breadcrumb">
             <div class="container">
                 <ul>
@@ -338,26 +344,36 @@
                                         </span>
                                     </div>
                                 </div>
-                                <form id="add-to-cart-form"
-                                    class="product-details__productForm">
+                                <form id="add-to-cart-form" class="product-details__productForm">
                                     <div class="product-options">
                                         @if (isset($product->attributes) && count($product->attributes) > 0)
                                             @foreach ($product->attributes as $index => $attribute)
-                                                <div class=" swatch" data-option-index="{{ $index }}">
-                                                    <div class="swatch-title">{{ $attribute['name'] }}: <span
-                                                            class="value-roperties"></span></div>
+                                                <div class=" swatch" data-option-index="{{ $index }}"
+                                                    data-option-name="{{ $attribute['name'] }}">
+                                                    <div class="swatch-title">
+                                                        {{ $attribute['name'] }}: <span class="value-roperties"></span>
+                                                    </div>
                                                     <div class="swatch-lists">
                                                         @foreach ($attribute['values'] as $key => $value)
-                                                        <div data-value="{{ $value }}" class="swatch-element  has-img ">
-                                                            <input id="swatch-{{ $index }}-{{ $key }}-s" type="radio" name="option-{{ $index }}"
-                                                                value="{{ $value }}" />
-                                                            <label
-                                                                class="d-inline-flex align-items-center justify-content-center"
-                                                                title="{{ $value }}" for="swatch-{{ $index }}-{{ $key }}-s">
-                                                                {{ $value }}
-                                                            </label>
-                                                        </div>
+                                                            <div data-value="{{ $value }}"
+                                                                class="swatch-element  has-img ">
+                                                                <input
+                                                                    id="swatch-{{ $index }}-{{ $key }}-s"
+                                                                    type="radio" name="option-{{ $index }}"
+                                                                    value="{{ $value }}" />
+                                                                <label
+                                                                    class="d-inline-flex align-items-center justify-content-center"
+                                                                    title="{{ $value }}"
+                                                                    for="swatch-{{ $index }}-{{ $key }}-s">
+                                                                    {{ $value }}
+                                                                </label>
+                                                            </div>
                                                         @endforeach
+                                                    </div>
+                                                    <div class="error-attribute" >
+                                                        <span class="error-attribute-text">
+                                                            <% errors.attribute[0] %>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -391,11 +407,12 @@
                                             </div>
                                         </div>
                                         <div class="product-buttons d-flex">
-                                            <button type="submit" data-role='addtocart' class="btn-cart add_to_cart" ng-click="addToCartFromProductDetail()">
+                                            <button type="submit" data-role='addtocart' class="btn-cart add_to_cart"
+                                                ng-click="addToCartFromProductDetail()">
                                                 <span class="text">Thêm vào giỏ</span>
                                             </button>
-                                            <button type="button" class="btn-buy-now" data-id="128742280" ng-click="addToCartCheckoutFromProductDetail()"
-                                                data-qty="1">
+                                            <button type="button" class="btn-buy-now" data-id="128742280"
+                                                ng-click="addToCartCheckoutFromProductDetail()" data-qty="1">
                                                 Mua ngay
                                             </button>
                                         </div>
@@ -412,7 +429,7 @@
                                             </div>
                                             <div class="info">
                                                 <div class="title">
-                                                    Giao hàng toán quốc:
+                                                    Giao hàng toàn quốc:
                                                 </div>
                                                 <p>
                                                     Thanh toán (COD) khi nhận hàng
@@ -426,10 +443,10 @@
                                             </div>
                                             <div class="info">
                                                 <div class="title">
-                                                    Miễn phí giao hàng:
+                                                    Phí giao hàng siêu rẻ:
                                                 </div>
                                                 <p>
-                                                    Theo chính sách
+                                                    Đồng giá 22.000đ/đơn hàng
                                                 </p>
                                             </div>
                                         </div>
@@ -440,10 +457,10 @@
                                             </div>
                                             <div class="info">
                                                 <div class="title">
-                                                    Đổi trả trong 7 ngày:
+                                                    Giao hàng nhanh chóng:
                                                 </div>
                                                 <p>
-                                                    Kể từ ngày mua hàng
+                                                    Tiết kiệm thời gian và chi phí
                                                 </p>
                                             </div>
                                         </div>
@@ -457,7 +474,7 @@
                                                     Hỗ trợ 24/7:
                                                 </div>
                                                 <p>
-                                                    Theo chính sách
+                                                    Hỗ trợ sớm nhất có thể khi nhận được yêu cầu
                                                 </p>
                                             </div>
                                         </div>
@@ -583,55 +600,6 @@
             selectorWrapper.style.textAlign = 'left';
             selectorWrapper.style.marginBottom = '15px';
         });
-
-
-
-
-        function handleRadioChange(event) {
-            var target = event.target;
-            console.log(target);
-            var optionIndex = target.closest('.swatch').getAttribute('data-option-index');
-            var optionValue = target.value;
-
-            var form = target.closest('form');
-            var optionSelectors = form.querySelectorAll('.single-option-selector');
-            // var targetOptionSelector = optionSelectors[optionIndex];
-            // console.log(targetOptionSelector);
-
-            // targetOptionSelector.value = optionValue;
-            // targetOptionSelector.dispatchEvent(new Event('change'));
-
-            var valuePropertiesElement = target.closest('.swatch').querySelector('.swatch-title .value-roperties');
-            if (valuePropertiesElement) {
-                valuePropertiesElement.innerHTML = optionValue;
-            }
-        }
-
-        var swatchRadios = document.querySelectorAll('.swatch input[type="radio"]');
-        swatchRadios.forEach(function(radio) {
-            radio.addEventListener('change', handleRadioChange);
-        });
-
-        setTimeout(function() {
-            // Select all elements with the class 'swatch-element' inside '.swatch'
-            var swatchElements = document.querySelectorAll('.swatch .swatch-element');
-
-            swatchElements.forEach(function(element) {
-                // Find the closest '.swatch' ancestor
-                var swatchElement = element.closest('.swatch');
-                if (swatchElement) {
-                    // Find the checked radio input within the closest '.swatch'
-                    var checkedInput = swatchElement.querySelector('input:checked');
-                    // Find the '.header .value-roperties' element within the closest '.swatch'
-                    var valuePropertiesElement = swatchElement.querySelector(
-                        '.swatch-title .value-roperties');
-                    if (checkedInput && valuePropertiesElement) {
-                        // Set the inner HTML to the value of the checked input
-                        valuePropertiesElement.innerHTML = checkedInput.value;
-                    }
-                }
-            });
-        }, 200);
     </script>
     <script>
         function activeTab(obj) {
@@ -833,34 +801,57 @@
             $scope.form = {
                 quantity: 1
             };
-
+            $scope.errors = {
+                attribute: []
+            };
             $scope.selectedAttributes = [];
-            jQuery('.product-attribute-values .badge').click(function() {
-                if (!jQuery(this).hasClass('active')) {
-                    jQuery(this).parent().find('.badge').removeClass('active');
-                    jQuery(this).addClass('active');
-                    if ($scope.selectedAttributes.length > 0 && $scope.selectedAttributes.find(item => item
-                            .index == jQuery(this).data('index'))) {
-                        $scope.selectedAttributes.find(item => item.index == jQuery(this).data('index'))
-                            .value = jQuery(this).data('value');
-                    } else {
-                        let index = jQuery(this).data('index');
-                        $scope.selectedAttributes.push({
-                            index: index,
-                            name: jQuery(this).data('name'),
-                            value: jQuery(this).data('value'),
-                        });
-                    }
-                } else {
-                    jQuery(this).parent().find('.badge').removeClass('active');
-                    jQuery(this).removeClass('active');
-                    $scope.selectedAttributes = $scope.selectedAttributes.filter(item => item.index !=
-                        jQuery(this).data('index'));
-                }
-                $scope.$apply();
-            });
+            if ($scope.product.attributes) {
+                Object.values($scope.product.attributes).forEach((item) => {
+                    $scope.selectedAttributes.push({
+                        index: item.name,
+                        name: item.name,
+                        value: ''
+                    });
+                });
+            }
+            // jQuery('.product-attribute-values .badge').click(function() {
+            //     if (!jQuery(this).hasClass('active')) {
+            //         jQuery(this).parent().find('.badge').removeClass('active');
+            //         jQuery(this).addClass('active');
+            //         if ($scope.selectedAttributes.length > 0 && $scope.selectedAttributes.find(item => item
+            //                 .index == jQuery(this).data('index'))) {
+            //             $scope.selectedAttributes.find(item => item.index == jQuery(this).data('index'))
+            //                 .value = jQuery(this).data('value');
+            //         } else {
+            //             let index = jQuery(this).data('index');
+            //             $scope.selectedAttributes.push({
+            //                 index: index,
+            //                 name: jQuery(this).data('name'),
+            //                 value: jQuery(this).data('value'),
+            //             });
+            //         }
+            //     } else {
+            //         jQuery(this).parent().find('.badge').removeClass('active');
+            //         jQuery(this).removeClass('active');
+            //         $scope.selectedAttributes = $scope.selectedAttributes.filter(item => item.index !=
+            //             jQuery(this).data('index'));
+            //     }
+            //     $scope.$apply();
+            // });
 
             $scope.addToCartFromProductDetail = function() {
+                if ($scope.selectedAttributes.length == 0) {
+                    toastr.warning('Vui lòng chọn thuộc tính của sản phẩm');
+                    return;
+                }
+                for (let i = 0; i < $scope.selectedAttributes.length; i++) {
+                    if ($scope.selectedAttributes[i].value == '') {
+                        $scope.errors.attribute[i] = 'Vui lòng chọn thuộc tính của sản phẩm';
+                        $scope.$applyAsync();
+                        return;
+                    }
+                }
+
                 let quantity = $('#add-to-cart-form input[name="quantity"]').val();
 
                 url = "{{ route('cart.add.item', ['productId' => 'productId']) }}";
@@ -912,6 +903,18 @@
             }
 
             $scope.addToCartCheckoutFromProductDetail = function() {
+                if ($scope.selectedAttributes.length == 0) {
+                    toastr.warning('Vui lòng chọn thuộc tính của sản phẩm');
+                    return;
+                }
+                for (let i = 0; i < $scope.selectedAttributes.length; i++) {
+                    if ($scope.selectedAttributes[i].value == '') {
+                        $scope.errors.attribute[i] = 'Vui lòng chọn thuộc tính của sản phẩm';
+                        $scope.$applyAsync();
+                        return;
+                    }
+                }
+
                 let quantity = $('#add-to-cart-form input[name="quantity"]').val();
                 url = "{{ route('cart.add.item', ['productId' => 'productId']) }}";
                 url = url.replace('productId', $scope.product.id);
@@ -951,6 +954,64 @@
                     }
                 });
             }
+
+            function handleRadioChange(event) {
+                var target = event.target;
+                var optionIndex = target.closest('.swatch').getAttribute('data-option-index');
+                var optionValue = target.value;
+                var optionName = target.closest('.swatch').getAttribute('data-option-name');
+
+                if ($scope.selectedAttributes.find(item => item.name == optionName)) {
+                    $scope.selectedAttributes.find(item => item.name == optionName).value = optionValue;
+                } else {
+                    $scope.selectedAttributes.push({
+                        name: optionName,
+                        value: optionValue
+                    });
+                }
+
+                console.log($scope.selectedAttributes);
+
+                var form = target.closest('form');
+                var optionSelectors = form.querySelectorAll('.single-option-selector');
+                // var targetOptionSelector = optionSelectors[optionIndex];
+                // console.log(targetOptionSelector);
+
+                // targetOptionSelector.value = optionValue;
+                // targetOptionSelector.dispatchEvent(new Event('change'));
+
+                var valuePropertiesElement = target.closest('.swatch').querySelector(
+                    '.swatch-title .value-roperties');
+                if (valuePropertiesElement) {
+                    valuePropertiesElement.innerHTML = optionValue;
+                }
+            }
+
+            var swatchRadios = document.querySelectorAll('.swatch input[type="radio"]');
+            swatchRadios.forEach(function(radio) {
+                radio.addEventListener('change', handleRadioChange);
+            });
+
+            setTimeout(function() {
+                // Select all elements with the class 'swatch-element' inside '.swatch'
+                var swatchElements = document.querySelectorAll('.swatch .swatch-element');
+
+                swatchElements.forEach(function(element) {
+                    // Find the closest '.swatch' ancestor
+                    var swatchElement = element.closest('.swatch');
+                    if (swatchElement) {
+                        // Find the checked radio input within the closest '.swatch'
+                        var checkedInput = swatchElement.querySelector('input:checked');
+                        // Find the '.header .value-roperties' element within the closest '.swatch'
+                        var valuePropertiesElement = swatchElement.querySelector(
+                            '.swatch-title .value-roperties');
+                        if (checkedInput && valuePropertiesElement) {
+                            // Set the inner HTML to the value of the checked input
+                            valuePropertiesElement.innerHTML = checkedInput.value;
+                        }
+                    }
+                });
+            }, 200);
         });
     </script>
 @endpush

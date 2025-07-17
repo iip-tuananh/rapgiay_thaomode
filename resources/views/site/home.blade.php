@@ -91,7 +91,7 @@
                             </div>
                             <div class="info">
                                 <div class="title">
-                                    Giao hàng toán quốc
+                                    Giao hàng toàn quốc
                                 </div>
                                 <p>
                                     Thanh toán (COD) khi nhận hàng
@@ -105,24 +105,24 @@
                             </div>
                             <div class="info">
                                 <div class="title">
-                                    Miễn phí giao hàng
+                                    Phí giao hàng siêu rẻ
                                 </div>
                                 <p>
-                                    Theo chính sách
+                                    Đồng giá 22.000đ/đơn hàng
                                 </p>
                             </div>
                         </div>
                         <div class="swiper-slide item">
                             <div class="icon">
                                 <img width="48" height="48" loading="lazy"
-                                    src="/site/images/icon_policy_3.png?1749442635129" alt="Đổi trả trong 7 ngày" />
+                                    src="/site/images/icon_policy_3.png?1749442635129" alt="Giao hàng nhanh chóng   " />
                             </div>
                             <div class="info">
                                 <div class="title">
-                                    Đổi trả trong 7 ngày
+                                    Giao hàng nhanh chóng
                                 </div>
                                 <p>
-                                    Kể từ ngày mua hàng
+                                    Tiết kiệm thời gian và chi phí
                                 </p>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                                     Hỗ trợ 24/7
                                 </div>
                                 <p>
-                                    Theo chính sách
+                                    Hỗ trợ sớm nhất có thể khi nhận được yêu cầu
                                 </p>
                             </div>
                         </div>

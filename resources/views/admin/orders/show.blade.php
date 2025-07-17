@@ -119,8 +119,8 @@
                                 <td class="text-right"><b><% form.discount_value | number %></b></td>
                             </tr>
                             <tr>
-                                <td colspan="5" class="text-right"><b>Điểm quy đổi (<% form.point %> điểm): </b></td>
-                                <td class="text-right"><b><% form.point_value | number %></b></td>
+                                <td colspan="5" class="text-right"><b>Phí vận chuyển: </b></td>
+                                <td class="text-right"><b><% 22000 | number %></b></td>
                             </tr>
                             <tr>
                                 <td colspan="5" class="text-right"><b>Thành tiền sau giảm: </b></td>

@@ -2588,7 +2588,7 @@
                     </svg>
                 </div>
                 <div class="order-summary-toggle-total-recap">
-                    <span class="total-recap-final-price"><% (total - discount.value - pointValue) | number %>₫</span>
+                    <span class="total-recap-final-price"><% (total - discount.value - pointValue + 22000) | number %>₫</span>
                 </div>
             </div>
         </div>
@@ -2832,6 +2832,14 @@
                                                 </span>
                                             </td>
                                         </tr>
+                                        <tr class="total-line total-line-shipping">
+                                            <td class="total-line-name">Phí vận chuyển</td>
+                                            <td class="total-line-price">
+                                                <span class="order-summary-emphasis">
+                                                    <% 22000 | number %>₫
+                                                </span>
+                                            </td>
+                                        </tr>
                                         <tr class="total-line total-line-shipping" ng-if="currentUser">
                                             <td class="total-line-name">Điểm quy đổi</td>
                                             <td class="total-line-price">
@@ -2849,7 +2857,7 @@
                                             <td class="total-line-name payment-due">
                                                 <span class="payment-due-currency">VND</span>
                                                 <span class="payment-due-price">
-                                                    <% (total - discount.value - pointValue) | number %>₫
+                                                    <% (total - discount.value - pointValue + 22000) | number %>₫
                                                 </span>
                                             </td>
                                         </tr>
