@@ -307,6 +307,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/update-status','Admin\OrderController@updateStatus')->name('orders.update.status');
             Route::get('/exportList','Admin\OrderController@exportList')->name('orders.exportList');
             Route::post('/importExcel', 'Admin\OrderController@importExcel')->name('orders.importExcel');
+            Route::get('/{id}/delete', 'Admin\OrderController@delete')->name('orders.delete');
         });
 
         // banner trang chủ

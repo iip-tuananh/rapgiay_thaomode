@@ -4,6 +4,7 @@ namespace App\Model\Admin;
 
 use App\Model\BaseModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
@@ -67,6 +68,10 @@ class Order extends Model
 
     public function canCancel() {
         return $this->status == self::MOI && \Auth::guard('client')->user()->email == $this->customer_email;
+    }
+
+    public function canDelete() {
+        return Auth::guard('admin')->user()->is_super_admin;
     }
 
     public function getTotalPriceAttribute()

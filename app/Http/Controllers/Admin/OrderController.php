@@ -64,6 +64,9 @@ class OrderController extends Controller
                 if ($object->type == 0) {
                     $result = $result . ' <a href="'.route('orders.show', $object->id).'" title="xem chi tiết" class="dropdown-item"><i class="fa fa-angle-right"></i>Xem chi tiết</a>';
                 }
+                if ($object->canDelete()) {
+                    $result = $result . ' <a href="'.route('orders.delete', $object->id).'" title="xóa" class="dropdown-item delete"><i class="fa fa-angle-right"></i>Xóa</a>';
+                }
                 $result = $result . '</div></div>';
                 return $result;
             })
@@ -178,4 +181,25 @@ class OrderController extends Controller
             return Response::json($json);
         }
 	}
+
+    public function delete($id)
+    {
+        $object = ThisModel::findOrFail($id);
+        if (!$object->canDelete()) {
+            $message = array(
+                "message" => "Không thể xóa!",
+                "alert-type" => "warning"
+            );
+        } else {
+            $object->details()->delete();
+            $object->delete();
+            $message = array(
+                "message" => "Thao tác thành công!",
+                "alert-type" => "success"
+            );
+        }
+
+
+        return redirect()->route($this->route.'.index')->with($message);
+    }
 }
