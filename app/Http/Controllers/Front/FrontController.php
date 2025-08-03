@@ -46,9 +46,9 @@ class FrontController extends Controller
     {
         $data['banners'] = Banner::with(['image'])->where('position', 1)->get();
         $data['reviews'] = Review::query()->with(['image'])->orderBy('id', 'desc')->get();
-        $data['smallBanner'] = Banner::with(['image'])->where('position', 2)->orderBy('id', 'desc')->first();
-        $data['partners'] = Partner::with(['image'])->limit(3)->get();
-        $data['newProducts'] = Product::with(['image'])->where('status', 1)->limit(6)->orderBy('id', 'DESC')->inRandomOrder()->get();
+        // $data['smallBanner'] = Banner::with(['image'])->where('position', 2)->orderBy('id', 'desc')->first();
+        // $data['partners'] = Partner::with(['image'])->limit(3)->get();
+        // $data['newProducts'] = Product::with(['image'])->where('status', 1)->limit(6)->orderBy('id', 'DESC')->inRandomOrder()->get();
         $data['categorySpecialPost'] = CategorySpecial::query()->with([
             'posts' => function ($q) {
                 $q->where('status', 1);
@@ -95,20 +95,20 @@ class FrontController extends Controller
                                     ->with(['image'])
                                     ->orderBy('sort', 'ASC');
                             },
-                        ])->inRandomOrder();
+                        ])->inRandomOrder()->limit(16);
                 }
             ])
             ->first();
-        $data['newBlogs'] = Post::with(['image'])->where(['status' => 1])
-            ->orderBy('id', 'DESC')
-            ->select(['id', 'name', 'slug', 'intro', 'created_at'])
-            ->limit(10)->get();
+        // $data['newBlogs'] = Post::with(['image'])->where(['status' => 1])
+        //     ->orderBy('id', 'DESC')
+        //     ->select(['id', 'name', 'slug', 'intro', 'created_at'])
+        //     ->limit(10)->get();
 
-        $data['productCategories'] = Category::query()->where('show_home_page', 1)->orderBy('sort_order')->get();
+        $data['productCategories'] = Category::query()->where('show_home_page', 1)->orderBy('sort_order')->select(['id', 'name', 'slug'])->get();
         // $data['vouchers'] = Voucher::query()->where('status', 1)->where('quantity', '>', 0)->where('to_date', '>=', now())->orderBy('created_at', 'desc')->get();
         // block khối ảnh cuối trang
-        $block = Block::query()->find(1);
-        $data['block'] = $block;
+        // $block = Block::query()->find(1);
+        // $data['block'] = $block;
 
         // $data['user'] = null;
         // $data['new_orders'] = 0;
